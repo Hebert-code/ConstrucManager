@@ -1,8 +1,18 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.core.validators import MinValueValidator
 
 # Create your models here.
+
+class PagamentoTipo(models.TextChoices):
+    A_VISTA ='À VISTA'
+    PARCELADO = 'PARCELADO'
+    
+class StatusTransacao(models.TextChoices):
+        PENDENTE = 'PENDENTE'
+        PAGO = 'PAGO'
+        CANCELADO = 'CANCELADO'
 
 class Produto(models.Model):
     produto_nome = models.CharField('Nome do produto', max_length=255)
@@ -145,55 +155,22 @@ class Vendedor(models.Model):
         return f'{self.vendedor_nome}'
 
 class Venda(models.Model):
-    class StatusPagamento(models.TextChoices):
-        PENDENTE = 'PENDENTE'
-        PAGO = 'PAGO'
-        CANCELADO = 'CANCELADO'
-    
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     venda_data = models.DateTimeField('Data da venda', default=timezone.now)
     venda_valor_total = models.DecimalField('Valor total da venda', decimal_places=2, max_digits=18, default=0.0)
     venda_local_entrega = models.CharField('Local de entrega da venda', max_length=511, default='Sem local de entrega')
-    venda_pagamento_status = models.CharField('Status do pagamaneto da venda', max_length=10, choices=StatusPagamento.choices, default=StatusPagamento.PENDENTE)
+    venda_status = models.CharField('Status do pagamanento da venda', max_length=10, choices=StatusTransacao.choices, default=StatusTransacao.PENDENTE)
+    venda_pagamento_tipo = models.CharField('Tipo do pagamento da venda', max_length=10, choices=PagamentoTipo.choices, default=PagamentoTipo.A_VISTA)
+    venda_pagamento_quantidade_parcelas = models.PositiveIntegerField('Quantidade de parcelas do pagamento da venda', default=1, validators=[MinValueValidator(1)])
+    venda_data_pagamento = models.DateTimeField('Data do pagamento da venda', default=timezone.now)
     
     def __str__(self) -> str:
-        return f'{self.cliente.cliente_nome - self.vendedor.vendedor_nome} ({self.venda_data})'
+        return f'Venda-{self.id}: {self.cliente.cliente_nome} - {self.vendedor.vendedor_nome} ({self.venda_data})'
     
     class Meta: 
         verbose_name = 'Venda'
         verbose_name_plural = 'Vendas'
-
-class Pagamamento(models.Model):
-    class PagamentoTipo(models.TextChoices):
-        A_VISTA ='À VISTA'
-        PARCELADO = 'PARCELADO'
-    
-    venda = models.ForeignKey(Venda, on_delete=models.CASCADE)
-    pagamento_tipo = models.CharField('Tipo do pagamento', max_length=10, choices=PagamentoTipo.choices, default=PagamentoTipo.A_VISTA)
-    pagamento_quantidade_parcelas = models.PositiveIntegerField('Quantidade de parcelas do pagamento')
-    pagamento_data = models.DateTimeField('Data do pagamento', default=timezone.now)
-    
-    class Meta:
-        verbose_name = 'Pagamento'
-        verbose_name_plural = 'Pagamentos'
-        
-    def __str__(self) -> str:
-        return f'Pagamento: {self.id} - Venda: {self.venda.id}'
-    
-class Parcela(models.Model):
-    pagamento = models.ForeignKey(Pagamamento, on_delete=models.CASCADE)
-    parcela_valor = models.DecimalField('Valor da parcela', decimal_places=2, max_digits=18)
-    parcela_numero = models.PositiveIntegerField('Número da parcela')
-    parcela_data_vencimento = models.DateField('Data de vencimento da parcela', default=timezone.now)
-    parecela_data_pagamento = models.DateField('Data de pagamento da parcela', default=None, null=True)
-    
-    class Meta: 
-        verbose_name = 'Parcela'
-        verbose_name_plural = 'Parcelas'
-    
-    def __str__(self) -> str:
-        return f'Parcela: {self.id} - Pagamento: {self.pagamento.id}'
     
 class ProdutoVenda(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
@@ -207,3 +184,32 @@ class ProdutoVenda(models.Model):
         
     def __str__(self) -> str:
         return f'Produto: {self.produto.produto_nome} - Venda: {self.venda.id}'
+    
+class Compra(models.Model):
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    compra_data = models.DateTimeField('Data da compra', default=timezone.now)
+    compra_valor_total = models.DecimalField('Valor da compra', decimal_places=2, max_digits=18, default=0.0)
+    compra_status = models.CharField('Stats da compra',max_length=10, choices=StatusTransacao.choices, default=StatusTransacao.PENDENTE)
+    compra_pagamento_tipo = models.CharField('Tipo do pagamento da compra', max_length=10, choices=PagamentoTipo.choices, default=PagamentoTipo.A_VISTA)
+    compra_pagamento_quantidade_parcelas = models.PositiveIntegerField('Quantidade de parcelas do pagamento da compra', default=1, validators=[MinValueValidator(1)])
+    compra_pagamanento_data = models.DateTimeField('Data do pagamento da compra', default=timezone.now)
+    
+    class Meta:
+        verbose_name = 'Compra'
+        verbose_name_plural = 'Compras'
+    
+    def __str__(self) -> str:
+        return f'Compra-{self.id}: {self.fornecedor.fornecedor_nome} ({self.compra_data})'
+    
+class ProdutoCompra(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    quantidade_produto = models.PositiveIntegerField('Quantidade do produto na venda')
+
+    class Meta: 
+        verbose_name = 'Junção entre produto e compra'
+        verbose_name_plural = 'Junções entre produto e compra'
+        unique_together = ['produto', 'compra']
+        
+    def __str__(self) -> str:
+        return f'Produto: {self.produto.produto_nome} - Compra: {self.compra.id}'
