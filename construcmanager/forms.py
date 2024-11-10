@@ -43,6 +43,13 @@ class ClienteForm(forms.ModelForm):
     
 
 class ProdutoForm(forms.ModelForm):
+    categorias = forms.ModelMultipleChoiceField(
+        queryset=Categoria.objects.all(),
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
+        required=False,
+        label='Categorias'
+    )
+
     class Meta:
         model = Produto
         fields = [
@@ -62,4 +69,12 @@ class ProdutoForm(forms.ModelForm):
             'produto_quantidade_em_estoque': forms.NumberInput(attrs={'class': 'form-control'}),
             'produto_codigo': forms.NumberInput(attrs={'class': 'form-control'}),
             'produto_ponto_reposicao': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+        
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['categoria_nome']  # Adjust fields as per your Categoria model
+        widgets = {
+            'categoria_nome': forms.TextInput(attrs={'class': 'form-control'}),
         }
