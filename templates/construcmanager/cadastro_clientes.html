@@ -1,0 +1,62 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Cadastro de Cliente</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cliente_nome">Nome do Cliente</label>
+                {{ form.cliente_nome }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cliente_apelido">Apelido</label>
+                {{ form.cliente_apelido }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cliente_cnpj">CNPJ</label>
+                {{ form.cliente_cnpj }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="cliente_cpf">CPF</label>
+                {{ form.cliente_cpf }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="cliente_email">Email</label>
+                {{ form.cliente_email }}
+            </div>
+        </div>
+        <h4>Endereço</h4>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="endereco_numero">Número</label>
+                {{ form.endereco_numero }}
+            </div>
+            <div class="form-group col-md-9">
+                <label for="endereco_rua">Rua</label>
+                {{ form.endereco_rua }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="endereco_bairro">Bairro</label>
+                {{ form.endereco_bairro }}
+            </div>
+            <div class="form-group col-md-4">
+                <label for="endereco_cidade">Cidade</label>
+                {{ form.endereco_cidade }}
+            </div>
+            <div class="form-group col-md-2">
+                <label for="endereco_estado">Estado</label>
+                {{ form.endereco_estado }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+    </form>
+</div>
+{% endblock %}

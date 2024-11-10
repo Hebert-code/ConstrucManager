@@ -1,0 +1,47 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Cadastro de Produto</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="produto_nome">Nome do Produto</label>
+                {{ form.produto_nome }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="produto_marca">Marca do Produto</label>
+                {{ form.produto_marca }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="produto_preco_a_vista">Preço à Vista</label>
+                {{ form.produto_preco_a_vista }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="produto_preco_parcelado">Preço Parcelado</label>
+                {{ form.produto_preco_parcelado }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="produto_quantidade_em_estoque">Quantidade em Estoque</label>
+                {{ form.produto_quantidade_em_estoque }}
+            </div>
+            <div class="form-group col-md-6">
+                <label for="produto_codigo">Código do Produto</label>
+                {{ form.produto_codigo }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="produto_ponto_reposicao">Ponto de Reposição</label>
+                {{ form.produto_ponto_reposicao }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+    </form>
+</div>
+{% endblock %}
