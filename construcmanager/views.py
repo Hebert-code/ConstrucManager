@@ -18,7 +18,7 @@ def cadastro_produtos(request):
             for categoria in categorias:
                 ProdutoCategoria.objects.create(produto=produto, categoria=categoria)
 
-            return redirect('pagina_sucesso')  # Replace with your success URL
+            return redirect('sucesso')  # Replace with your success URL
     else:
         form = ProdutoForm()
     return render(request, 'construcmanager/cadastro_produtos.html', {'form': form})
@@ -30,7 +30,7 @@ def nova_categoria(request):
         
         if form.is_valid():
             form.save()
-            return redirect('pagina_sucesso')
+            return redirect('sucesso')
     else:
         form = CategoriaForm()
     
@@ -61,3 +61,6 @@ def estoque(request):
 
 def controle_vendas(request):
     return render(request, 'construcmanager/controle_vendas.html') 
+
+def sucesso(request):
+    return render(request, 'construcmanager/sucesso.html')
