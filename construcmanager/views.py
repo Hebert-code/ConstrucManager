@@ -1,21 +1,40 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Produto, Categoria, Fornecedor, Venda, Compra
-from .forms import ClienteForm, ProdutoForm
+from .models import Produto, Categoria, Fornecedor, Venda, Compra, ProdutoCategoria
+from .forms import ClienteForm, ProdutoForm, CategoriaForm
 
 def index(request):
     return render(request, 'construcmanager/index.html') 
 
 def cadastro_produtos(request):
-    
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('pagina_sucesso')  # Substitua por uma URL apropriada
+            # Save the product
+            produto = form.save()
+
+            # Create ProdutoCategoria relations
+            categorias = form.cleaned_data['categorias']
+            for categoria in categorias:
+                ProdutoCategoria.objects.create(produto=produto, categoria=categoria)
+
+            return redirect('pagina_sucesso')  # Replace with your success URL
     else:
         form = ProdutoForm()
     return render(request, 'construcmanager/cadastro_produtos.html', {'form': form})
+
+
+def nova_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('pagina_sucesso')
+    else:
+        form = CategoriaForm()
+    
+    return render(request, 'construcmanager/nova_categoria.html', {'form': form})
 
 def cadastro_fornecedores(request):
     return render(request, 'construcmanager/cadastro_fornecedores.html') 
