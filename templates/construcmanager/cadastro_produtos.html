@@ -5,6 +5,7 @@
     <h2 class="text-center">Cadastro de Produto</h2>
     <form method="POST" action="">
         {% csrf_token %}
+        {{form.errors}}
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="produto_nome">Nome do Produto</label>
