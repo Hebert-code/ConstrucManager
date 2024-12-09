@@ -5,9 +5,12 @@ from construcmanager.views import listar_fornecedor, cadastro_fornecedor, atuali
 from construcmanager.views import listar_vendas, nova_venda, editar_venda, deletar_venda
 from construcmanager.views import listar_compras, nova_compra, detalhar_compra, cancelar_compra
 from construcmanager.views import consultar_estoque, atualizar_estoque, alertas_estoque
+from construcmanager.views import home
 from . import views
 
 urlpatterns = [
+    path('home/', home, name='home'),
+
     path('clientes/', listar_clientes, name='listar_clientes'),
     path('clientes/novo/', criar_cliente, name='criar_cliente'),
     path('clientes/editar/<int:pk>/', atualizar_cliente, name='atualizar_cliente'),

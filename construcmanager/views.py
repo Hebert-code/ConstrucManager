@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Cliente, Produto, Fornecedor, Venda, Compra
 from .forms import ClienteForm, ProdutoForm, FornecedorForm, VendaForm, CompraForm, ProdutoCompraForm, AtualizarEstoqueForm
+from django.contrib.auth.decorators import login_required
 
 
 from django.forms import formset_factory
 from django.db import transaction
+from django.db.models import F
 
 import csv
 from datetime import datetime
@@ -14,12 +16,18 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import render_to_string
 
+@login_required
+def home(request):
+    return render(request, 'construcmanager/home.html')
+
 #Clientes
 
+@login_required
 def listar_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'construcmanager/clientes/listar.html', {'clientes': clientes})
 
+@login_required
 def criar_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -30,6 +38,7 @@ def criar_cliente(request):
         form = ClienteForm()
     return render(request, 'construcmanager/clientes/form.html', {'form': form})
 
+@login_required
 def atualizar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
@@ -41,6 +50,7 @@ def atualizar_cliente(request, pk):
         form = ClienteForm(instance=cliente)
     return render(request, 'construcmanager/clientes/form.html', {'form': form})
 
+@login_required
 def deletar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
@@ -53,10 +63,12 @@ def deletar_cliente(request, pk):
 
 #Produtos
 
+@login_required
 def listar_produtos(request):
-    produto = Produto.objects.all()
-    return render(request, 'construcmanager/produto/listar.html', {'produto': produto})
+    produtos = Produto.objects.all()
+    return render(request, 'construcmanager/produto/listar.html', {'produtos': produtos})
 
+@login_required
 def cadastro_produtos(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
@@ -69,6 +81,7 @@ def cadastro_produtos(request):
     produtos = Produto.objects.all()
     return render(request, 'construcmanager/produto/cadastro_produtos.html', {'form': form, 'produtos': produtos})
 
+@login_required
 def atualizar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -80,6 +93,7 @@ def atualizar_produto(request, pk):
         form = ProdutoForm(instance=produto)
     return render(request, 'construcmanager/produto/editar_produto.html', {'form': form, 'produto': produto})
 
+@login_required
 def delete_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -93,10 +107,12 @@ def delete_produto(request, pk):
 
 #Fornecedores
 
+@login_required
 def listar_fornecedor(request):
     fornecedor = Fornecedor.objects.all()
     return render(request, 'construcmanager/fornecedor/listar_fornecedor.html', {'fornecedores': fornecedor})
 
+@login_required
 def cadastro_fornecedor(request):
     if request.method == 'POST':
         form = FornecedorForm(request.POST)
@@ -107,6 +123,7 @@ def cadastro_fornecedor(request):
         form = FornecedorForm
     return render(request, 'construcmanager/fornecedor/cadastro_fornecedor.html', {'form': form})
 
+@login_required
 def atualizar_fornecedor(request, pk):
     fornecedor = get_object_or_404(Fornecedor, pk=pk)
     if request.method == 'POST':
@@ -118,6 +135,7 @@ def atualizar_fornecedor(request, pk):
         form = FornecedorForm(instance=fornecedor)
     return render(request, 'construcmanager/fornecedor/atualizar_fornecedor.html', {'form': form, 'fornecedor': fornecedor})
 
+@login_required
 def deletar_fornecedor(request, pk):
     fornecedor = get_object_or_404(Fornecedor, pk=pk)
     if request.method == 'POST':
@@ -131,10 +149,12 @@ def deletar_fornecedor(request, pk):
 
 #Vendas
 
+@login_required
 def listar_vendas(request):
     vendas = Venda.objects.all()
     return render(request, 'construcmanager/vendas/listar_vendas.html', {'vendas': vendas})
 
+@login_required
 def nova_venda(request):
     if request.method == 'POST':
         form = VendaForm(request.POST)
@@ -160,7 +180,7 @@ def nova_venda(request):
     
     return render(request, 'construcmanager/vendas/nova_venda.html', {'form': form})
 
-
+@login_required
 def editar_venda(request, pk): 
     venda = get_object_or_404(Venda, pk=pk)
     if request.method == 'POST':
@@ -172,6 +192,7 @@ def editar_venda(request, pk):
         form = VendaForm(instance=venda)
     return(request, 'construcmanager/vendas/editar_vendas.html', {'form': form})
 
+@login_required
 def deletar_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
     if request.method == 'POST':
@@ -184,10 +205,12 @@ def deletar_venda(request, pk):
 
 #Compras
 
+@login_required
 def listar_compras(request):
     compras = Compra.objects.all() 
     return render(request, 'construcmanager/compra/listar_compras.html', {'compras': compras})
 
+@login_required
 def nova_compra(request):
     ProdutoCompraFormSet = formset_factory(ProdutoCompraForm, extra=1)
 
@@ -212,10 +235,12 @@ def nova_compra(request):
         'formset': formset,
     })
 
+@login_required
 def detalhar_compra(request, compra_id):
     compra = get_object_or_404(Compra, id=compra_id) 
     return render(request, 'construcmanager/compra/detalhar_compra.html', {'compra': compra})
 
+@login_required
 def cancelar_compra(request, compra_id):
     compra = get_object_or_404(Compra, id=compra_id)
     compra.compra_status = 'CANCELADO' 
@@ -226,11 +251,15 @@ def cancelar_compra(request, compra_id):
 
 #Estoque
 
+@login_required
 def consultar_estoque(request):
+    """Lista todos os produtos no estoque."""
     produtos = Produto.objects.all()
     return render(request, 'construcmanager/estoque/consultar_estoque.html', {'produtos': produtos})
 
+@login_required
 def atualizar_estoque(request, produto_id):
+    """Atualiza o estoque de um produto específico."""
     produto = get_object_or_404(Produto, id=produto_id)
     if request.method == 'POST':
         form = AtualizarEstoqueForm(request.POST, instance=produto)
@@ -239,23 +268,25 @@ def atualizar_estoque(request, produto_id):
             return redirect('consultar_estoque')
     else:
         form = AtualizarEstoqueForm(instance=produto)
-    return render(request, 'construcmanager/estoque/atualizar_estoque.html', {'form': form})
+    return render(request, 'construcmanager/estoque/atualizar_estoque.html', {'form': form, 'produto': produto})
 
+@login_required
 def alertas_estoque(request):
-    produtos = Produto.objects.filter(produto_estoque__lt=10) 
+    """Exibe os produtos com estoque abaixo do ponto de reposição."""
+    produtos = Produto.objects.filter(produto_quantidade_em_estoque__lt=F('produto_ponto_reposicao'))
     return render(request, 'construcmanager/estoque/alertas_estoque.html', {'produtos': produtos})
 
 #Estoque
 
 #Relatorio
 
-# Relatório de Vendas
-
 # Página central de relatórios
+@login_required
 def pagina_relatorios(request):
     return render(request, 'construcmanager/relatorios/pagina_relatorios.html')
 
 # Relatório de Vendas
+@login_required
 def relatorio_vendas(request):
     data_inicial = request.GET.get('data_inicial')
     data_final = request.GET.get('data_final')
@@ -273,6 +304,7 @@ def relatorio_vendas(request):
         'data_final': data_final,
     })
 
+@login_required
 def exportar_vendas_csv(request):
     data_inicial = request.GET.get('data_inicial')
     data_final = request.GET.get('data_final')
@@ -291,6 +323,7 @@ def exportar_vendas_csv(request):
 
     return response
 
+@login_required
 def exportar_vendas_pdf(request):
     data_inicial = request.GET.get('data_inicial')
     data_final = request.GET.get('data_final')
@@ -307,6 +340,7 @@ def exportar_vendas_pdf(request):
     return response
 
 # Relatório de Compras
+@login_required
 def relatorio_compras(request):
     data_inicial = request.GET.get('data_inicial')
     data_final = request.GET.get('data_final')
@@ -324,6 +358,7 @@ def relatorio_compras(request):
         'data_final': data_final,
     })
 
+@login_required
 def exportar_compras_csv(request):
     compras = Compra.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -337,10 +372,12 @@ def exportar_compras_csv(request):
     return response
 
 # Relatório de Estoque
+@login_required
 def relatorio_estoque(request):
     produtos = Produto.objects.all()
     return render(request, 'construcmanager/relatorios/relatorio_estoque.html', {'produtos': produtos})
 
+@login_required
 def exportar_estoque_csv(request):
     produtos = Produto.objects.all()
     response = HttpResponse(content_type='text/csv')

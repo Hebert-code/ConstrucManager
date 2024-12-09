@@ -1,0 +1,165 @@
+/* Definindo as cores da identidade visual */
+:root {
+    --cor-principal: #f39c12; /* Laranja vibrante */
+    --cor-hover: #d35400; /* Laranja mais escuro */
+    --cor-fundo: #34495e; /* Azul escuro */
+    --cor-letra: #ecf0f1; /* Branco claro */
+    --cor-letra-hover: #ffffff; /* Branco puro */
+}
+
+/* Corpo e Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--cor-fundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: var(--cor-letra);
+}
+
+/* Container do formulário */
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: var(--cor-principal);
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Campos de Input */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--cor-principal);
+    outline: none;
+    background-color: #fff;
+}
+
+/* Botões */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--cor-principal);
+    color: var(--cor-letra);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--cor-hover);
+}
+
+/* Links */
+a {
+    color: var(--cor-principal);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--cor-letra);
+}
+
+/* Mensagens de status */
+p {
+    text-align: center;
+    font-size: 14px;
+    color: var(--cor-letra);
+}
+
+/* Divisor horizontal */
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+}
+
+/* Estilo para os botões adicionais (como login via Google) */
+button_group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button_group .button {
+    padding: 12px;
+    background-color: #f4f4f4;
+    color: var(--cor-fundo);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button_group .button:hover {
+    background-color: var(--cor-hover);
+    color: var(--cor-letra);
+}
+
+/* Ajuste para a área de login e elementos em geral */
+.element h1 {
+    font-size: 2rem;
+    color: var(--cor-fundo);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Foco nos botões sociais como o login com Google */
+.social-login-button {
+    background-color: #4285F4; /* Cor do Google */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-login-button:hover {
+    background-color: #357ae8;
+}
+
+/* Hover e foco em todos os elementos interativos */
+button, a, .social-login-button {
+    transition: all 0.3s ease;
+}

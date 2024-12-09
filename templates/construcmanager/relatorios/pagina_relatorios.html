@@ -1,12 +1,13 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Central de Relatórios</h1>
-<p>Escolha abaixo o relatório que deseja visualizar:</p>
-
-<ul>
-    <li><a href="{% url 'relatorio_vendas' %}">Relatório de Vendas</a></li>
-    <li><a href="{% url 'relatorio_compras' %}">Relatório de Compras</a></li>
-    <li><a href="{% url 'relatorio_estoque' %}">Relatório de Estoque</a></li>
-</ul>
+<div class="container">
+    <h1>Central de Relatórios</h1>
+    <p>Escolha abaixo o relatório que deseja visualizar:</p>
+    <ul>
+        <li><a href="{% url 'relatorio_vendas' %}">Relatório de Vendas</a></li>
+        <li><a href="{% url 'relatorio_compras' %}">Relatório de Compras</a></li>
+        <li><a href="{% url 'relatorio_estoque' %}">Relatório de Estoque</a></li>
+    </ul>
+</div>
 {% endblock %}

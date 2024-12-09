@@ -1,34 +1,36 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Relatório de Vendas</h1>
-<form method="get">
-    <label for="data_inicial">Data Inicial:</label>
-    <input type="date" name="data_inicial" value="{{ data_inicial }}">
-    <label for="data_final">Data Final:</label>
-    <input type="date" name="data_final" value="{{ data_final }}">
-    <button type="submit">Filtrar</button>
-</form>
+<div class="container">
+    <h1>Relatório de Vendas</h1>
+    <form method="get">
+        <label for="data_inicial">Data Inicial:</label>
+        <input type="date" name="data_inicial" value="{{ data_inicial }}">
+        <label for="data_final">Data Final:</label>
+        <input type="date" name="data_final" value="{{ data_final }}">
+        <button type="submit">Filtrar</button>
+    </form>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Cliente</th>
-        <th>Data</th>
-        <th>Valor Total</th>
-    </tr>
-    {% for venda in vendas %}
-    <tr>
-        <td>{{ venda.id }}</td>
-        <td>{{ venda.cliente }}</td>
-        <td>{{ venda.data }}</td>
-        <td>{{ venda.valor_total }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Valor Total</th>
+        </tr>
+        {% for venda in vendas %}
+        <tr>
+            <td>{{ venda.id }}</td>
+            <td>{{ venda.cliente }}</td>
+            <td>{{ venda.data }}</td>
+            <td>{{ venda.valor_total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
-<p>Total de Vendas: {{ total_vendas }}</p>
+    <p>Total de Vendas: {{ total_vendas }}</p>
 
-<a href="?format=csv">Exportar CSV</a>
-<a href="?format=pdf">Exportar PDF</a>
+    <a href="?format=csv">Exportar CSV</a>
+    <a href="?format=pdf">Exportar PDF</a>
+</div>
 {% endblock %}

@@ -1,11 +1,13 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Excluir Fornecedor</h1>
-<p>Tem certeza que deseja excluir o fornecedor "{{ fornecedor.fornecedor_nome }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Excluir</button>
-    <a href="{% url 'listar_fornecedor' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container">
+    <h1>Excluir Fornecedor</h1>
+    <p>Tem certeza que deseja excluir o fornecedor "{{ fornecedor.fornecedor_nome }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'listar_fornecedor' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

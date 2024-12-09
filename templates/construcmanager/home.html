@@ -1,0 +1,52 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<main class="container_completo">
+    <section class="hero">
+        <h1>Bem-vindo ao ConstrucManager</h1>
+        <p>Gerencie suas vendas, compras, estoque e relatórios em um só lugar.</p>
+        <a href="{% url 'pagina_relatorios' %}" class="btn-primary">Acessar Relatórios</a>
+    </section>
+
+    <section class="features">
+        <h2>Funcionalidades</h2>
+        <div class="features-container">
+            <div class="feature-card">
+                <h3>Relatórios</h3>
+                <p>Gere relatórios de vendas, compras e estoque.</p>
+                <a href="{% url 'pagina_relatorios' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Gestão de Vendas</h3>
+                <p>Gerencie suas vendas de forma prática e rápida.</p>
+                <a href="{% url 'listar_vendas' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Gestão de Compras</h3>
+                <p>Controle suas compras e fornecedores.</p>
+                <a href="{% url 'listar_compras' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Estoque</h3>
+                <p>Mantenha seu estoque sempre atualizado.</p>
+                <a href="{% url 'consultar_estoque' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Clientes</h3>
+                <p>Organize as informações de seus clientes.</p>
+                <a href="{% url 'listar_clientes' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Produtos</h3>
+                <p>Gerencie seu inventário de produtos.</p>
+                <a href="{% url 'listar_produtos' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+            <div class="feature-card">
+                <h3>Fornecedores</h3>
+                <p>Controle as informações dos seus fornecedores.</p>
+                <a href="{% url 'listar_fornecedor' %}" class="btn-secondary">Ver Mais</a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

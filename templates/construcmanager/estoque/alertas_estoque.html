@@ -1,24 +1,34 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<h2>Alertas de Estoque Baixo</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Produto</th>
-      <th>Quantidade em Estoque</th>
-      <th>Estoque Mínimo</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for produto in produtos %}
-      <tr>
-        <td>{{ produto.produto_nome }}</td>
-        <td>{{ produto.produto_estoque }}</td>
-        <td>{{ produto.produto_estoque_minimo }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<a href="{% url 'consultar_estoque' %}" class="btn btn-primary">Voltar ao Estoque</a>
+<div class="container">
+  <h2>Alertas de Estoque</h2>
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>Nome do Produto</th>
+              <th>Estoque Atual</th>
+              <th>Ponto de Reposição</th>
+              <th>Ações</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for produto in produtos %}
+          <tr>
+              <td>{{ produto.produto_nome }}</td>
+              <td>{{ produto.produto_estoque }}</td>
+              <td>{{ produto.produto_ponto_reposicao }}</td>
+              <td>
+                  <a href="{% url 'atualizar_estoque' produto.id %}" class="btn btn-primary btn-sm">Atualizar</a>
+              </td>
+          </tr>
+          {% empty %}
+          <tr>
+              <td colspan="4">Nenhum produto com estoque abaixo do ponto de reposição.</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+
 {% endblock %}

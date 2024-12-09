@@ -1,19 +1,21 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<form method="post">
-  {% csrf_token %}
-  <h2>Detalhes da Compra</h2>
-  {{ compra_form.as_p }}
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <h2>Detalhes da Compra</h2>
+    {{ compra_form.as_p }}
 
-  <h2>Produtos</h2>
-  {{ formset.management_form }}
-  {% for form in formset %}
-      <div class="form-group">
-          {{ form.as_p }}
-      </div>
-  {% endfor %}
+    <h2>Produtos</h2>
+    {{ formset.management_form }}
+    {% for form in formset %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
 
-  <button type="submit" class="btn btn-primary">Salvar Compra</button>
-</form>
+    <button type="submit" class="btn btn-primary">Salvar Compra</button>
+  </form>
+</div>
 {% endblock %}

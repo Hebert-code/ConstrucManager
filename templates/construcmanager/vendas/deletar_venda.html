@@ -1,11 +1,13 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
-<h2>Excluir Venda</h2>
-<p>Tem certeza de que deseja excluir a venda de {{ venda.produto.nome }} para {{ venda.cliente.nome }}?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Excluir</button>
-    <a href="{% url 'listar_vendas' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container">
+    <h2>Excluir Venda</h2>
+    <p>Tem certeza de que deseja excluir a venda de {{ venda.produto.nome }} para {{ venda.cliente.nome }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'listar_vendas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

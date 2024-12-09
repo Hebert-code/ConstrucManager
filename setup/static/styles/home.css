@@ -1,0 +1,151 @@
+/* Hero Section */
+
+.container_completo{
+    color: #333;
+    background-color: #f4f4f4;
+    height: 100%;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(to right, #d35400, #e67e22); /* Gradiente laranja */
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero .btn-primary {
+    padding: 0.8rem 1.5rem;
+    background-color: #f39c12; /* Laranja vibrante */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.hero .btn-primary:hover {
+    background-color: #d35400; /* Laranja mais escuro */
+}
+
+/* Features Section */
+.features {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #34495e; /* Azul escuro */
+}
+
+.features-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-left: 5px solid #f39c12; /* Destaque lateral laranja */
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #e67e22; /* Laranja escuro */
+}
+
+.feature-card p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+.feature-card .btn-secondary {
+    padding: 0.5rem 1rem;
+    background-color: #34495e; /* Azul escuro */
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.feature-card .btn-secondary:hover {
+    background-color: #162636; /* Azul ainda mais escuro */
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero .btn-primary {
+        font-size: 0.9rem;
+    }
+
+    .features-container {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        padding: 1rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .features h2 {
+        font-size: 1.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1rem;
+    }
+
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+
+    .hero .btn-primary,
+    .feature-card .btn-secondary {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

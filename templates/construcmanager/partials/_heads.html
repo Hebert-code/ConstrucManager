@@ -2,7 +2,7 @@
 
 <div class="pagina">
     <header class="cabecalho">
-        <img class="imagem_menu" src="{% static '/assets/logo/Logo.svg'%}" alt="Logo Do Rui Barbosa"/>
+        <img class="imagem_menu" src="{% static '/assets/logo/logo5.png'%}" alt="Logo"/>
         
         <div class="foto_usuario">
             <img src="{% static '/assets/icons/usuario.png'%}" alt="">
@@ -14,27 +14,31 @@
         <nav class="menu-lateral_navegacao menu-hidden" id="menuLateral">
             <p class="menu-lateral_navegacao_texto">MENU PRINCIPAL</p>
             
-            <a href="/construcmanager/clientes/"> <img src="{% static 'assets/icons/user-plus.svg' %}" alt="Ícone Cadastro Cliente"> 
+            <a href="/construcmanager/home/"> <img src="{% static 'assets/icons/casa.png' %}" alt="Ícone Home"> 
+                <span class="menu-lateral_navegacao_icon">Home</span>
+            </a>
+
+            <a href="/construcmanager/clientes/"> <img src="{% static 'assets/icons/do-utilizador.png' %}" alt="Ícone Cliente"> 
                 <span class="menu-lateral_navegacao_icon">Clientes</span>
             </a>
             
-            <a href="/construcmanager/produtos"> <img src="{% static 'assets/icons/box.svg' %}" alt="Ícone Cadastro Produto"> 
+            <a href="/construcmanager/produtos"> <img src="{% static 'assets/icons/caixas.png' %}" alt="Ícone Cadastro Produto"> 
                 <span class="menu-lateral_navegacao_icon">Produtos</span>
             </a>
             
-            <a href="/construcmanager/vendas"> <img src="{% static 'assets/icons/shopping-cart.svg' %}" alt="Ícone Vendas"> 
+            <a href="/construcmanager/vendas"> <img src="{% static 'assets/icons/carrinho-de-compras.png' %}" alt="Ícone Vendas"> 
                 <span class="menu-lateral_navegacao_icon">Vendas</span>
             </a>
             
-            <a href="/construcmanager/fornecedores"> <img src="{% static 'assets/icons/shopping-bag.svg' %}" alt="Ícone Compras"> 
+            <a href="/construcmanager/fornecedores"> <img src="{% static 'assets/icons/usuarios-alt.png' %}" alt="Ícone Fornecedores"> 
                 <span class="menu-lateral_navegacao_icon">Fornecedores</span>
             </a>
             
-            <a href="/construcmanager/estoque"> <img src="{% static 'assets/icons/warehouse.svg' %}" alt="Ícone Estoque"> 
+            <a href="/construcmanager/estoque"> <img src="{% static 'assets/icons/lado-do-caminhao.png' %}" alt="Ícone Estoque"> 
                 <span class="menu-lateral_navegacao_icon">Estoque</span>
             </a>
             
-            <a href="/construcmanager/relatorios"> <img src="{% static 'assets/icons/bar-chart.svg' %}" alt="Ícone Relatórios"> 
+            <a href="/construcmanager/relatorios"> <img src="{% static 'assets/icons/documento.png' %}" alt="Ícone Relatórios"> 
                 <span class="menu-lateral_navegacao_icon">Relatórios</span>
             </a>
         </nav>

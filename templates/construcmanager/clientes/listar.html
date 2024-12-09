@@ -1,6 +1,7 @@
 {% extends 'construcmanager/base.html' %}
 {% load static %}
 {% block content %}
+<div class="container">
     <h1>Lista de Clientes</h1>
     <a href="{% url 'criar_cliente' %}" class="btn btn-primary">Novo Cliente</a>
     <table class="table">
@@ -26,4 +27,5 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}
