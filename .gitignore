@@ -2,3 +2,12 @@ __pycache__/
 db.sqlite3
 .env
 venv/
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('ID_CLIENT'),
+            'secret': os.getenv('GOOGLE_KEY_LOGIN'),  
+        }
+    }
+}
