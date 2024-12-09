@@ -1,0 +1,15 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<h2>Detalhes da Compra #{{ compra.id }}</h2>
+<ul>
+  <li><strong>Fornecedor:</strong> {{ compra.fornecedor.fornecedor_nome }}</li>
+  <li><strong>Data da Compra:</strong> {{ compra.compra_data }}</li>
+  <li><strong>Valor Total:</strong> {{ compra.compra_valor_total }}</li>
+  <li><strong>Status:</strong> {{ compra.compra_status }}</li>
+  <li><strong>Tipo de Pagamento:</strong> {{ compra.compra_pagamento_tipo }}</li>
+  <li><strong>Quantidade de Parcelas:</strong> {{ compra.compra_pagamento_quantidade_parcelas }}</li>
+  <li><strong>Data do Pagamento:</strong> {{ compra.compra_pagamanento_data }}</li>
+</ul>
+<a href="{% url 'listar_compras' %}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

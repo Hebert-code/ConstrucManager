@@ -1,0 +1,29 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>Lista de Clientes</h1>
+    <a href="{% url 'criar_cliente' %}" class="btn btn-primary">Novo Cliente</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.cliente_nome }}</td>
+                <td>{{ cliente.cliente_apelido }}</td>
+                <td>{{ cliente.cliente_email }}</td>
+                <td>
+                    <a href="{% url 'atualizar_cliente' cliente.pk %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'deletar_cliente' cliente.pk %}" class="btn btn-danger">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

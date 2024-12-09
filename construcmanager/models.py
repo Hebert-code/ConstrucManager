@@ -192,7 +192,7 @@ class Compra(models.Model):
     compra_status = models.CharField('Stats da compra',max_length=10, choices=StatusTransacao.choices, default=StatusTransacao.PENDENTE)
     compra_pagamento_tipo = models.CharField('Tipo do pagamento da compra', max_length=10, choices=PagamentoTipo.choices, default=PagamentoTipo.A_VISTA)
     compra_pagamento_quantidade_parcelas = models.PositiveIntegerField('Quantidade de parcelas do pagamento da compra', default=1, validators=[MinValueValidator(1)])
-    compra_pagamanento_data = models.DateTimeField('Data do pagamento da compra', default=timezone.now)
+    compra_pagamento_data = models.DateTimeField('Data do pagamento da compra', default=timezone.now)
     
     class Meta:
         verbose_name = 'Compra'

@@ -1,0 +1,33 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2>Lista de Produtos</h2>
+    <a href="{% url 'cadastro_produtos' %}" class="btn btn-primary mb-3">Novo Produto</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Preço à Vista</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.produto_nome }}</td>
+                <td>{{ produto.produto_marca }}</td>
+                <td>R$ {{ produto.produto_preco_a_vista }}</td>
+                <td>{{ produto.produto_quantidade_em_estoque }}</td>
+                <td>
+                    <a href="{% url 'atualizar_produto' produto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'delete_produto' produto.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<h2>Lista de Compras</h2>
+<a href="{% url 'nova_compra' %}" class="btn btn-primary">Nova Compra</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fornecedor</th>
+      <th>Data da Compra</th>
+      <th>Valor Total</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for compra in compras %}
+      <tr>
+        <td>{{ compra.id }}</td>
+        <td>{{ compra.fornecedor.fornecedor_nome }}</td>
+        <td>{{ compra.compra_data }}</td>
+        <td>{{ compra.compra_valor_total }}</td>
+        <td>{{ compra.compra_status }}</td>
+        <td>
+          <a href="{% url 'detalhar_compra' compra.id %}" class="btn btn-info">Detalhes</a>
+          <a href="{% url 'cancelar_compra' compra.id %}" class="btn btn-danger">Cancelar</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

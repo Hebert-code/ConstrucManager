@@ -35,7 +35,6 @@ body {
 .pagina {
     display: flex;
     flex-direction: column; 
-    height: 100vh;
 }
 
 /* Estilo para o cabeçalho */
