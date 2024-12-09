@@ -1,0 +1,31 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Lista de Fornecedores</h1>
+<a href="{% url 'cadastro_fornecedor' %}" class="btn btn-primary">Adicionar Fornecedor</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fornecedor in fornecedores %}
+        <tr>
+            <td>{{ fornecedor.fornecedor_nome }}</td>
+            <td>{{ fornecedor.fornecedor_cnpj }}</td>
+            <td>{{ fornecedor.fornecedor_telefone }}</td>
+            <td>{{ fornecedor.fornecedor_email }}</td>
+            <td>
+                <a href="{% url 'atualizar_fornecedor' fornecedor.pk %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'deletar_fornecedor' fornecedor.pk %}" class="btn btn-danger">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

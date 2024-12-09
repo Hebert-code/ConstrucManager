@@ -1,0 +1,23 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<h2>Consulta de Estoque</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade em Estoque</th>
+      <th>Estoque Mínimo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for produto in produtos %}
+      <tr>
+        <td>{{ produto.produto_nome }}</td>
+        <td>{{ produto.produto_estoque }}</td>
+        <td>{{ produto.produto_estoque_minimo }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

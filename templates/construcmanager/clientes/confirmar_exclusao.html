@@ -1,0 +1,11 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Confirmar Exclusão</h1>
+<p>Você tem certeza de que deseja excluir o cliente <strong>{{ cliente.cliente_nome }}</strong>?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    <a href="{% url 'listar_clientes' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
