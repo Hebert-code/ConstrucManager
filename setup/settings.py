@@ -89,6 +89,16 @@ AUTHENTICATION_BACKENDS = [
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('ID_CLIENT'),
+            'secret': os.getenv('GOOGLE_KEY_LOGIN'),  
+        }
+    }
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -138,3 +148,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = '/accounts/google/login/callback/'
 LOGIN_REDIRECT_URL = '/construcmanager/home/'
+SOCIALACCOUNT_ENABLED = True
+
