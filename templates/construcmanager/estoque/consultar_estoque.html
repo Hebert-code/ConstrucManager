@@ -30,6 +30,46 @@
           {% endfor %}
       </tbody>
   </table>
-</div>
 
+  <!-- Paginação -->
+  <nav aria-label="Navegação de página">
+    <ul class="pagination justify-content-center">
+      {% if produtos.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo;&laquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ produtos.previous_page_number }}">&laquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&laquo;&laquo;</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">&laquo;</span>
+      </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link">Página {{ produtos.number }} de {{ produtos.paginator.num_pages }}</span>
+      </li>
+
+      {% if produtos.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ produtos.next_page_number }}">&raquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ produtos.paginator.num_pages }}">&raquo;&raquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&raquo;</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">&raquo;&raquo;</span>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
   <h2>Lista de Compras</h2>
-  <a href="{% url 'nova_compra' %}" class="btn btn-primary">Nova Compra</a>
+  <a href="{% url 'nova_compra' %}" class="btn btn-primary mb-3">Nova Compra</a>
   <table class="table">
     <thead>
       <tr>
@@ -20,16 +20,61 @@
         <tr>
           <td>{{ compra.id }}</td>
           <td>{{ compra.fornecedor.fornecedor_nome }}</td>
-          <td>{{ compra.compra_data }}</td>
-          <td>{{ compra.compra_valor_total }}</td>
+          <td>{{ compra.compra_data|date:"d/m/Y" }}</td>
+          <td>R$ {{ compra.compra_valor_total|floatformat:2 }}</td>
           <td>{{ compra.compra_status }}</td>
           <td>
             <a href="{% url 'detalhar_compra' compra.id %}" class="btn btn-info">Detalhes</a>
             <a href="{% url 'cancelar_compra' compra.id %}" class="btn btn-danger">Cancelar</a>
           </td>
         </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">Nenhuma compra encontrada.</td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>
+
+  <!-- Paginação -->
+  <nav aria-label="Navegação de página">
+    <ul class="pagination justify-content-center">
+      {% if compras.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo;&laquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ compras.previous_page_number }}">&laquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&laquo;&laquo;</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">&laquo;</span>
+      </li>
+      {% endif %}
+
+      <li class="page-item disabled">
+        <span class="page-link">Página {{ compras.number }} de {{ compras.paginator.num_pages }}</span>
+      </li>
+
+      {% if compras.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ compras.next_page_number }}">&raquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ compras.paginator.num_pages }}">&raquo;&raquo;</a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">&raquo;</span>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">&raquo;&raquo;</span>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
 </div>
 {% endblock %}

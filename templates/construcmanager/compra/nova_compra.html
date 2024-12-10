@@ -2,20 +2,33 @@
 {% load static %}
 {% block content %}
 <div class="container">
-  <form method="post">
-    {% csrf_token %}
-    <h2>Detalhes da Compra</h2>
-    {{ compra_form.as_p }}
 
-    <h2>Produtos</h2>
-    {{ formset.management_form }}
-    {% for form in formset %}
-        <div class="form-group">
-            {{ form.as_p }}
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 
-    <button type="submit" class="btn btn-primary">Salvar Compra</button>
-  </form>
+    <h2>Detalhes da Compra</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ compra_form.as_p }}
+
+        <h2>Produtos</h2>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Salvar Compra</button>
+    </form>
+
 </div>
 {% endblock %}

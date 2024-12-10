@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import formset_factory
 from django.db import transaction
 from django.db.models import F
+from django.contrib import messages
 
 import csv
 from datetime import datetime
@@ -15,6 +16,16 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from allauth.account.views import SignupView
+from django.urls import path
+from construcmanager.forms import CustomSignupForm
+
+class CustomSignupView(SignupView):
+    def get_form_class(self):
+        return CustomSignupForm
+
 
 @login_required
 def home(request):
@@ -24,8 +35,19 @@ def home(request):
 
 @login_required
 def listar_clientes(request):
-    clientes = Cliente.objects.all()
+    clientes_list = Cliente.objects.all()
+    paginator = Paginator(clientes_list, 10) 
+    page = request.GET.get('page')
+
+    try:
+        clientes = paginator.page(page)
+    except PageNotAnInteger:
+        clientes = paginator.page(1)
+    except EmptyPage:
+        clientes = paginator.page(paginator.num_pages)
+
     return render(request, 'construcmanager/clientes/listar.html', {'clientes': clientes})
+
 
 @login_required
 def criar_cliente(request):
@@ -33,7 +55,8 @@ def criar_cliente(request):
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listar_clientes')
+            messages.success(request, 'Cliente criado com sucesso!')
+            return redirect('criar_cliente')
     else:
         form = ClienteForm()
     return render(request, 'construcmanager/clientes/form.html', {'form': form})
@@ -65,7 +88,17 @@ def deletar_cliente(request, pk):
 
 @login_required
 def listar_produtos(request):
-    produtos = Produto.objects.all()
+    produtos_list = Produto.objects.all()
+    paginator = Paginator(produtos_list, 10) 
+
+    page = request.GET.get('page')
+    try:
+        produtos = paginator.page(page)
+    except PageNotAnInteger:
+        produtos = paginator.page(1)
+    except EmptyPage:
+        produtos = paginator.page(paginator.num_pages)
+
     return render(request, 'construcmanager/produto/listar.html', {'produtos': produtos})
 
 @login_required
@@ -74,6 +107,7 @@ def cadastro_produtos(request):
         form = ProdutoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Produto cadastrado com sucesso!') 
             return redirect('cadastro_produtos')
     else:
         form = ProdutoForm()
@@ -109,8 +143,18 @@ def delete_produto(request, pk):
 
 @login_required
 def listar_fornecedor(request):
-    fornecedor = Fornecedor.objects.all()
-    return render(request, 'construcmanager/fornecedor/listar_fornecedor.html', {'fornecedores': fornecedor})
+    fornecedor_list = Fornecedor.objects.all()
+    paginator = Paginator(fornecedor_list, 10)  
+    page = request.GET.get('page')
+
+    try:
+        fornecedores = paginator.page(page)
+    except PageNotAnInteger:
+        fornecedores = paginator.page(1)
+    except EmptyPage:
+        fornecedores = paginator.page(paginator.num_pages)
+
+    return render(request, 'construcmanager/fornecedor/listar_fornecedor.html', {'fornecedores': fornecedores})
 
 @login_required
 def cadastro_fornecedor(request):
@@ -118,9 +162,10 @@ def cadastro_fornecedor(request):
         form = FornecedorForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Fornecedor salvo com sucesso!')
             return redirect('cadastro_fornecedor')
     else:
-        form = FornecedorForm
+        form = FornecedorForm()
     return render(request, 'construcmanager/fornecedor/cadastro_fornecedor.html', {'form': form})
 
 @login_required
@@ -151,7 +196,17 @@ def deletar_fornecedor(request, pk):
 
 @login_required
 def listar_vendas(request):
-    vendas = Venda.objects.all()
+    vendas_list = Venda.objects.all()
+    paginator = Paginator(vendas_list, 10) 
+    page = request.GET.get('page')
+
+    try:
+        vendas = paginator.page(page)
+    except PageNotAnInteger:
+        vendas = paginator.page(1)
+    except EmptyPage:
+        vendas = paginator.page(paginator.num_pages)
+
     return render(request, 'construcmanager/vendas/listar_vendas.html', {'vendas': vendas})
 
 @login_required
@@ -168,6 +223,7 @@ def nova_venda(request):
                         produto.quantidade -= venda.quantidade  # Atualiza o estoque
                         produto.save()  # Salva a atualização do produto
                         venda.save()  # Salva a venda no banco
+                    messages.success(request, 'Venda realizada com sucesso!')
                     return redirect('listar_vendas')
                 except Exception as e:
                     # Captura qualquer erro durante o salvamento e adiciona ao formulário
@@ -179,6 +235,7 @@ def nova_venda(request):
         form = VendaForm()
     
     return render(request, 'construcmanager/vendas/nova_venda.html', {'form': form})
+
 
 @login_required
 def editar_venda(request, pk): 
@@ -207,7 +264,17 @@ def deletar_venda(request, pk):
 
 @login_required
 def listar_compras(request):
-    compras = Compra.objects.all() 
+    compras_list = Compra.objects.all()
+    paginator = Paginator(compras_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        compras = paginator.page(page)
+    except PageNotAnInteger:
+        compras = paginator.page(1)
+    except EmptyPage:
+        compras = paginator.page(paginator.num_pages)
+
     return render(request, 'construcmanager/compra/listar_compras.html', {'compras': compras})
 
 @login_required
@@ -219,12 +286,20 @@ def nova_compra(request):
         formset = ProdutoCompraFormSet(request.POST)
 
         if compra_form.is_valid() and formset.is_valid():
-            with transaction.atomic():  # Garante consistência dos dados
-                compra = compra_form.save()
-                for form in formset:
-                    produto_compra = form.save(commit=False)
-                    produto_compra.compra = compra  # Associa o produto à compra
-                    produto_compra.save()
+            try:
+                with transaction.atomic():  # Garante consistência dos dados
+                    compra = compra_form.save()
+                    for form in formset:
+                        produto_compra = form.save(commit=False)
+                        produto_compra.compra = compra  # Associa o produto à compra
+                        produto_compra.save()
+
+                    # Mensagem de sucesso
+                    messages.success(request, "Compra realizada com sucesso!")
+
+            except Exception as e:
+                messages.error(request, f"Erro ao salvar a compra: {str(e)}")
+
             return redirect('listar_compras')
     else:
         compra_form = CompraForm()
@@ -234,7 +309,6 @@ def nova_compra(request):
         'compra_form': compra_form,
         'formset': formset,
     })
-
 @login_required
 def detalhar_compra(request, compra_id):
     compra = get_object_or_404(Compra, id=compra_id) 
@@ -253,21 +327,39 @@ def cancelar_compra(request, compra_id):
 
 @login_required
 def consultar_estoque(request):
-    """Lista todos os produtos no estoque."""
-    produtos = Produto.objects.all()
+    produtos_list = Produto.objects.all()
+    paginator = Paginator(produtos_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        produtos = paginator.page(page)
+    except PageNotAnInteger:
+        produtos = paginator.page(1)
+    except EmptyPage:
+        produtos = paginator.page(paginator.num_pages)
+
     return render(request, 'construcmanager/estoque/consultar_estoque.html', {'produtos': produtos})
 
 @login_required
 def atualizar_estoque(request, produto_id):
     """Atualiza o estoque de um produto específico."""
     produto = get_object_or_404(Produto, id=produto_id)
+    
     if request.method == 'POST':
         form = AtualizarEstoqueForm(request.POST, instance=produto)
         if form.is_valid():
-            form.save()
-            return redirect('consultar_estoque')
+            try:
+                form.save()
+                messages.success(request, f"Estoque do produto {produto.produto_nome} atualizado com sucesso!")
+                # Corrigir redirecionamento, passando o produto_id
+                return redirect('consultar_estoque')  # Ou use um redirecionamento mais específico, se necessário
+            except Exception as e:
+                messages.error(request, f"Erro ao atualizar o estoque: {str(e)}")
+        else:
+            messages.error(request, "Erro no formulário. Verifique os dados inseridos.")
     else:
         form = AtualizarEstoqueForm(instance=produto)
+
     return render(request, 'construcmanager/estoque/atualizar_estoque.html', {'form': form, 'produto': produto})
 
 @login_required

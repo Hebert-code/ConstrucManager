@@ -87,8 +87,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend', #Login personalizados com django allauth - email
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -149,4 +147,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = '/accounts/google/login/callback/'
 LOGIN_REDIRECT_URL = '/construcmanager/home/'
 SOCIALACCOUNT_ENABLED = True
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Use seu servidor SMTP, por exemplo, Gmail
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'construcmanager@gmail.com'  
+EMAIL_HOST_PASSWORD = 'rpmr rzul cnqr ydwj'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

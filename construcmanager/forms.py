@@ -1,6 +1,15 @@
 from django import forms
 from .models import Produto, Categoria, Fornecedor, Cliente, Venda, Compra, ProdutoVenda, ProdutoCompra, Vendedor
 
+from allauth.account.forms import SignupForm
+
+class CustomSignupForm(SignupForm):
+    def save(self, request):
+        user = super().save(request)
+        user.email = self.cleaned_data['email']
+        user.save()
+        return user
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
