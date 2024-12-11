@@ -1,0 +1,57 @@
+/* Geral */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #34495e;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Container principal */
+.content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Título */
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Parágrafo */
+p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Estilo do botão */
+button {
+    background-color: #e60000;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d40000;
+}
+
+/* Adicionando um estilo extra para garantir que o botão seja destacado */
+button:focus {
+    outline: none;
+}

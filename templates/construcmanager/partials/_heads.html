@@ -4,9 +4,13 @@
     <header class="cabecalho">
         <img class="imagem_menu" src="{% static '/assets/logo/logo5.png'%}" alt="Logo"/>
         
-        <div class="foto_usuario">
-            <img src="{% static '/assets/icons/usuario.png'%}" alt="">
+        <div class="cabecalho_2">
+            <a class="Botaosair" href="{% url 'account_logout' %}">Sair</a>
+            <div class="foto_usuario">
+                <img src="{% static '/assets/icons/usuario.png'%}" alt="">
+            </div>
         </div>
+
     </header>
     <hr style="margin: 0;">
 
@@ -30,7 +34,7 @@
                 <span class="menu-lateral_navegacao_icon">Vendas</span>
             </a>
             
-            <a href="/construcmanager/compras"> <img src="{% static 'assets/icons/usuarios-alt.png' %}" alt="Ícone Fornecedores"> 
+            <a href="/construcmanager/compras"> <img src="{% static 'assets/icons/adicionar.png' %}" alt="Ícone Compras"> 
                 <span class="menu-lateral_navegacao_icon">Compras</span>
             </a>
 
@@ -44,6 +48,10 @@
             
             <a href="/relatorios/"> <img src="{% static 'assets/icons/documento.png' %}" alt="Ícone Relatórios"> 
                 <span class="menu-lateral_navegacao_icon">Relatórios</span>
+            </a>
+
+            <a href="/relatorios/pagina_central_relatorios_insights"> <img src="{% static 'assets/icons/documento.png' %}" alt="Ícone Relatórios"> 
+                <span class="menu-lateral_navegacao_icon">Relatórios Insights</span>
             </a>
         </nav>
         <div id="toggleMenu" onclick="toggleMenu()">&#9776;</div>

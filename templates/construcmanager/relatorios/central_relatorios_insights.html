@@ -1,0 +1,45 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Central de Relatórios com Insights</h1>
+    <p class="text-center mb-4">Escolha o tipo de relatório com insights que deseja baixar:</p>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Produto' %}" class="text-decoration-none text-dark">
+                        Relatório de Produtos com Insights
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Venda' %}" class="text-decoration-none text-dark">
+                        Relatório de Vendas com Insights
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Fornecedor' %}" class="text-decoration-none text-dark">
+                        Relatório de Fornecedores com Insights
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Compra' %}" class="text-decoration-none text-dark">
+                        Relatório de Compras com Insights
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Estoque' %}" class="text-decoration-none text-dark">
+                        Relatório de Estoques com Insights
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio_com_insights' 'Cliente' %}" class="text-decoration-none text-dark">
+                        Relatório de Clientes com Insights
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

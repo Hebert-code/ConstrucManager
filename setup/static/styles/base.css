@@ -146,6 +146,28 @@ body {
     left: 0; 
 }
 
+.Botaosair{
+    text-decoration: none; /* Remove o sublinhado */
+    font-size: 16px; /* Ajuste o tamanho da fonte */
+    font-weight: bold; /* Torne o texto negrito */
+    color: #ffffff; /* Cor do texto */
+    background-color: #ff4d4d; /* Fundo vermelho */
+    padding: 8px 16px; /* Espaçamento interno do botão */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza as transições */
+    margin-left: 20px; /* Espaço para afastar o botão do logo */
+}
+.Botaosair:hover{
+    background-color: #cc0000; /* Cor do fundo ao passar o mouse */
+    color: #ffffff; /* Mantém a cor do texto no hover */
+}
+
+.cabecalho_2{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .menu-lateral_navegacao {
