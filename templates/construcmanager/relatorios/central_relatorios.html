@@ -1,0 +1,45 @@
+{% extends 'construcmanager/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Central de Relatórios</h1>
+    <p class="text-center mb-4">Escolha o tipo de relatório que deseja baixar:</p>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Produto' %}" class="text-decoration-none text-dark">
+                        Relatório de Produtos
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Venda' %}" class="text-decoration-none text-dark">
+                        Relatório de Vendas
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Fornecedor' %}" class="text-decoration-none text-dark">
+                        Relatório de Fornecedores
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Compra' %}" class="text-decoration-none text-dark">
+                        Relatório de Compras
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Estoque' %}" class="text-decoration-none text-dark">
+                        Relatório de Estoques
+                    </a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'baixar_relatorio' 'Cliente' %}" class="text-decoration-none text-dark">
+                        Relatório de Clientes
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

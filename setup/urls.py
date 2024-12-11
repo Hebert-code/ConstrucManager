@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('construcmanager/', include('construcmanager.urls')),
     path('accounts/', include('allauth.urls')),
+    path('relatorios/', include('relatorios.urls')),
 ]

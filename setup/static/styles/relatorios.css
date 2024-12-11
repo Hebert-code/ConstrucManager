@@ -1,0 +1,42 @@
+/* relatorios.css */
+
+ul.list-group {
+    padding-left: 0;
+}
+
+ul.list-group li {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+ul.list-group li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+ul.list-group li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+ul.list-group li a:hover {
+    color: #007bff;
+    background-color: #e9ecef;
+    transition: all 0.3s ease;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #555;
+}
