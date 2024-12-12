@@ -1,25 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
 from .models import Cliente, Produto, Fornecedor, Venda, Compra
 from .forms import ClienteForm, ProdutoForm, FornecedorForm, VendaForm, CompraForm, ProdutoCompraForm, AtualizarEstoqueForm
 from django.contrib.auth.decorators import login_required
-
-
 from django.forms import formset_factory
 from django.db import transaction
 from django.db.models import F
 from django.contrib import messages
-
-import csv
-from datetime import datetime
-from django.db.models import Sum
-from django.http import HttpResponse
-from xhtml2pdf import pisa
-from django.template.loader import render_to_string
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from allauth.account.views import SignupView
-from django.urls import path
 from construcmanager.forms import CustomSignupForm
 
 class CustomSignupView(SignupView):
@@ -214,22 +202,20 @@ def nova_venda(request):
     if request.method == 'POST':
         form = VendaForm(request.POST)
         if form.is_valid():
-            venda = form.save(commit=False)  # Salva a venda sem enviar ao banco ainda
-            produto = venda.produto  # Acessa o produto relacionado
+            venda = form.save(commit=False) 
+            produto = venda.produto
 
-            if produto.quantidade >= venda.quantidade:  # Verifica se há estoque suficiente
+            if produto.quantidade >= venda.quantidade: 
                 try:
-                    with transaction.atomic():  # Garante que as operações são atômicas
-                        produto.quantidade -= venda.quantidade  # Atualiza o estoque
-                        produto.save()  # Salva a atualização do produto
-                        venda.save()  # Salva a venda no banco
+                    with transaction.atomic():  
+                        produto.quantidade -= venda.quantidade 
+                        produto.save() 
+                        venda.save() 
                     messages.success(request, 'Venda realizada com sucesso!')
                     return redirect('listar_vendas')
                 except Exception as e:
-                    # Captura qualquer erro durante o salvamento e adiciona ao formulário
                     form.add_error(None, f"Ocorreu um erro ao salvar a venda: {str(e)}")
             else:
-                # Adiciona um erro ao formulário se o estoque for insuficiente
                 form.add_error('quantidade', 'Estoque insuficiente para realizar a venda.')
     else:
         form = VendaForm()
@@ -287,14 +273,13 @@ def nova_compra(request):
 
         if compra_form.is_valid() and formset.is_valid():
             try:
-                with transaction.atomic():  # Garante consistência dos dados
+                with transaction.atomic(): 
                     compra = compra_form.save()
                     for form in formset:
                         produto_compra = form.save(commit=False)
-                        produto_compra.compra = compra  # Associa o produto à compra
+                        produto_compra.compra = compra 
                         produto_compra.save()
 
-                    # Mensagem de sucesso
                     messages.success(request, "Compra realizada com sucesso!")
 
             except Exception as e:
@@ -351,8 +336,7 @@ def atualizar_estoque(request, produto_id):
             try:
                 form.save()
                 messages.success(request, f"Estoque do produto {produto.produto_nome} atualizado com sucesso!")
-                # Corrigir redirecionamento, passando o produto_id
-                return redirect('consultar_estoque')  # Ou use um redirecionamento mais específico, se necessário
+                return redirect('consultar_estoque') 
             except Exception as e:
                 messages.error(request, f"Erro ao atualizar o estoque: {str(e)}")
         else:

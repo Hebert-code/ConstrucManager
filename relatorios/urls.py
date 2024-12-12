@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import pagina_central_relatorios, baixar_relatorio
-from .views import baixar_relatorio_com_insights, pagina_central_relatorios_insights, view_baixar_relatorio
+from .views import pagina_central_relatorios_insights, view_baixar_relatorio
 
 urlpatterns = [
     path('', pagina_central_relatorios, name='central_relatorios'),

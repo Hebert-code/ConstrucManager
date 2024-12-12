@@ -85,15 +85,15 @@ def gerar_relatorio_com_insights_pdf(tipo_relatorio):
     pdf = canvas.Canvas(buffer, pagesize=letter)
     pdf.setTitle(f"Relatório de {tipo_relatorio}")
 
-    y = 750  # Posição inicial no PDF
-    max_width = 500  # Largura máxima para o texto antes de quebrar a linha
-    line_height = 15  # Altura entre linhas
+    y = 750
+    max_width = 500  
+    line_height = 15  
 
     def check_page_break():
         nonlocal y
-        if y < 50:  # Se estiver próximo do rodapé
-            pdf.showPage()  # Cria uma nova página
-            y = 750  # Reinicia a posição no topo da nova página
+        if y < 50:  
+            pdf.showPage() 
+            y = 750  
 
     def draw_wrapped_text(x, y, text, bold=False, italic=False):
         """
@@ -133,13 +133,12 @@ def gerar_relatorio_com_insights_pdf(tipo_relatorio):
                 f"Produto: {produto.produto_nome}, Quantidade em Estoque: {produto.produto_quantidade_em_estoque}"
             )
 
-    # Gerar os insights usando a API Gemini
     try:
         insights = gerar_insights_relatorio(
             titulo=f"Relatório de {tipo_relatorio}",
-            conteudo="Conteúdo relevante do relatório aqui"  # Substituir com dados reais para gerar insights
+            conteudo="Conteúdo relevante do relatório aqui" 
         )
-        insights = sanitize_text(insights)  # Sanitizar texto da API
+        insights = sanitize_text(insights) 
         y -= 20
         pdf.drawString(100, y, "Insights gerados:")
         y -= 20
@@ -168,8 +167,6 @@ def baixar_relatorio_com_insights(request, tipo_relatorio):
     buffer = gerar_relatorio_com_insights_pdf(tipo_relatorio)
     response = FileResponse(buffer, as_attachment=True, filename=f'relatorio_{tipo_relatorio}_com_insights.pdf')
     return response
-
- # Certifique-se de ajustar o caminho de import
 
 def view_baixar_relatorio(request, tipo_relatorio):
     """
