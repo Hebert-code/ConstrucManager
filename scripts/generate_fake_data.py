@@ -152,7 +152,7 @@ def gerar_dados_fakes():
             fornecedor=fornecedor,
             compra_valor_total=Decimal(random.uniform(100.0, 5000.0)).quantize(Decimal("0.01")),
             compra_pagamento_quantidade_parcelas=random.randint(1, 12),
-            compra_pagamanento_data=timezone.now(),
+            # compra_pagamanento_data=timezone.now(),
             compra_status=random.choice(['PENDENTE', 'PAGO', 'CANCELADO']),
             compra_pagamento_tipo=random.choice(['À VISTA', 'PARCELADO']),
         )
