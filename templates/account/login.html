@@ -37,6 +37,12 @@
                 </p>
             </div>
 
+            <div class="redirect-signup">
+                <p>{% trans "Recuperar senha:" %} 
+                    <a href="{% url 'account_reset_password' %}">{% trans "Recuperar" %}</a>
+                </p>
+            </div>
+
             <div class="social-login">
                 {% if SOCIALACCOUNT_ENABLED %}
                     {% include "socialaccount/snippets/login.html" %}
