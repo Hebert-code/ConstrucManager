@@ -28,11 +28,11 @@
 </p>
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/991d4614-7ced-4eeb-a33e-46f13f7456ee" width="500px">
+    <img src="https://github.com/user-attachments/assets/991d4614-7ced-4eeb-a33e-46f13f7456ee" width="1000px">
 </p>
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/7d113099-cc2e-4ad9-8f96-066126a8f93f" alt="Image Example" width="500px">
+    <img src="https://github.com/user-attachments/assets/7d113099-cc2e-4ad9-8f96-066126a8f93f" alt="Image Example" width="1000px">
 </p>
 
 <h2 id="about">📌 Sobre</h2>
